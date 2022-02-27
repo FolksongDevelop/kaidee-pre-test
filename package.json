@@ -5,7 +5,7 @@
   "homepage": "https://folksongdevelop.github.io/kaidee-pre-test/",
   "scripts": {
     "dev": "next dev",
-    "export": "next export && touch out/.nojekyll",
+    "export": "next export",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
