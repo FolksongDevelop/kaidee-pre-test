@@ -13,14 +13,15 @@ jobs:
     strategy:
       matrix:
         node-version: [14.x]
+        
     steps:
       - name: Checkout 🛎️
-        users: actions/checkout@v2
+        uses: actions/checkout@v2
         with:
           persist-credentials: false
 
       - name: Use Nodejs version ${{ matrix.node-version }}
-        users: actions/setup-node@v1
+        uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
@@ -32,7 +33,7 @@ jobs:
           npm run export
 
       - name: Deploy 🚀
-        users: FolksongDevelop/kaidee-pre-test
+        uses: FolksongDevelop/kaidee-pre-test
         with:
           deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY  }}
           branch: gh-pages # The branch the action should deploy to.
