@@ -6,36 +6,36 @@ on:
   pull_request:
     branches: [main]
 
-  jobs:
-    build-and-deploy:
-      runs-on: ubuntu-latest
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
 
-      strategy:
-        matrix:
-          node-version: [14.x]
-    
-    steps:
-      - name: Checkout 🛎️
-        user: actions/checkout@v2
-        with:
-          persist-credentials: false
+    strategy:
+      matrix:
+        node-version: [14.x]
+  
+  steps:
+    - name: Checkout 🛎️
+      user: actions/checkout@v2
+      with:
+        persist-credentials: false
 
-      - name: Use Nodejs version ${{ matrix.node-version }}
-        user: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: "npm"
+    - name: Use Nodejs version ${{ matrix.node-version }}
+      user: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: "npm"
 
-      - name: Install and Build 🔧
-        run: |
-          npm i
-          npm run build
-          npm run export
+    - name: Install and Build 🔧
+      run: |
+        npm i
+        npm run build
+        npm run export
 
-      - name: Deploy 🚀
-        user: FolksongDevelop/kaidee-pre-test
-        with:
-          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY  }}
-          branch: gh-pages # The branch the action should deploy to.
-          publish_dir: ./out # The folder the action should deploy.
-          clean: true # Automatically remove deleted files from the deploy branch
+    - name: Deploy 🚀
+      user: FolksongDevelop/kaidee-pre-test
+      with:
+        deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY  }}
+        branch: gh-pages # The branch the action should deploy to.
+        publish_dir: ./out # The folder the action should deploy.
+        clean: true # Automatically remove deleted files from the deploy branch
