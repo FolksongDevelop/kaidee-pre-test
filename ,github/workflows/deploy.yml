@@ -35,6 +35,6 @@ on:
         user: FolksongDevelop/kaidee-pre-test
         with:
           DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY  }}
-          branch: gh-pages # The branch the action should deploy to.
+          BRANCH: gh-pages # The branch the action should deploy to.
           PUBLISH_DIR: ./out/ # The folder the action should deploy.
           CLEAN: true # Automatically remove deleted files from the deploy branch
