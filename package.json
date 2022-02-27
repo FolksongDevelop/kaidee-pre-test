@@ -4,13 +4,11 @@
   "private": true,
   "homepage": "https://folksongdevelop.github.io/kaidee-pre-test/",
   "scripts": {
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
     "dev": "next dev",
+    "export": "next export && touch out/.nojekyll",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "export": "next export && touch out/.nojekyll"
+    "lint": "next lint"
   },
   "dependencies": {
     "next": "12.1.0",
@@ -22,7 +20,6 @@
     "@types/react": "17.0.39",
     "eslint": "8.10.0",
     "eslint-config-next": "12.1.0",
-    "gh-pages": "~3.2.3",
     "typescript": "4.5.5"
   }
 }
