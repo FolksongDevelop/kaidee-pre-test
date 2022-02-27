@@ -1,0 +1,36 @@
+name: Deploy to Github Pages
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+  jobs:
+    build:
+      runs-on: ubuntu-latest
+
+      strategy:
+        matrix:
+          node-version: [14.x]
+    
+    steps:
+      - name: Checkout
+        user: actions/checkout@v2
+
+      - name: Use Nodejs version ${{ matrix.node-version }}
+        user: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
+
+      - name: Install and Build
+        run: npm i && npm run build && npm run export
+
+      - name: Deploy
+        user: FolksongDevelop/kaidee-pre-test
+        with:
+          DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY  }}
+          BRANCH: gh-pages # The branch the action should deploy to.
+          PUBLISH_DIR: ./out # The folder the action should deploy.
+          CLEAN: true # Automatically remove deleted files from the deploy branch
