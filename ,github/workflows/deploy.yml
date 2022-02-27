@@ -7,7 +7,7 @@ on:
     branches: [main]
 
   jobs:
-    build:
+    build-and-deploy:
       runs-on: ubuntu-latest
 
       strategy:
@@ -15,8 +15,10 @@ on:
           node-version: [14.x]
     
     steps:
-      - name: Checkout
+      - name: Checkout 🛎️
         user: actions/checkout@v2
+        with:
+          persist-credentials: false
 
       - name: Use Nodejs version ${{ matrix.node-version }}
         user: actions/setup-node@v1
@@ -24,13 +26,15 @@ on:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
 
-      - name: Install and Build
-        run: npm i && npm run build && npm run export
+      - name: Install and Build 🔧
+        run: npm install && npm run build && npm run export
+        env:
+          CI: true
 
-      - name: Deploy
+      - name: Deploy 🚀
         user: FolksongDevelop/kaidee-pre-test
         with:
           DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY  }}
           BRANCH: gh-pages # The branch the action should deploy to.
-          PUBLISH_DIR: ./out # The folder the action should deploy.
+          PUBLISH_DIR: ./out/ # The folder the action should deploy.
           CLEAN: true # Automatically remove deleted files from the deploy branch
