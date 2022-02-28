@@ -38,8 +38,7 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GH_ACCESS_TOKEN  }}
-          # deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY  }}
           publish_branch: gh-pages # The branch the action should deploy to.
           publish_dir: ./out # The folder the action should deploy.
-          # clean: true # Automatically remove deleted files from the deploy branch
-          # force_orphan: true
+          clean: true # Automatically remove deleted files from the deploy branch
+          force_orphan: true
